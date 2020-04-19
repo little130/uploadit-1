@@ -2,12 +2,9 @@
 <?php
 
 /**
- * UploaditRoBot
+ * Hi
  * Simple Telegram bot to generate download link of files and upload files from URL
- * Based on MadelineProto
- * https://github.com/danog/MadelineProto
- * By TheDarkW3b
- * https://t.me/TheDarkW3b
+ * Based on @MoviesDownloadsCH
  */
 define('FILES_PATH', __DIR__.'/files');
 define('WEBSERVER_BASE_URL', 'yourdomain.com');
@@ -124,7 +121,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
                     $filename = basename($url);
                 }
                 if (empty($filename)) {
-                    yield $this->messages->sendMessage(['peer' => $update, 'message' => 'Can you check your URL? I\'m unable to detect filename from the URL.', 'reply_to_msg_id' => $message_id]);
+                    yield $this->messages->sendMessage(['peer' => $update, 'message' => 'Can you check your URL? I'm unable to detect filename from the URL.', 'reply_to_msg_id' => $message_id]);
 
                     return;
                 }
@@ -140,7 +137,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
                 }
                 $filesize = $headers['content-length'][0];
                 if ($filesize > 1024 ** 3) {
-                    yield $this->messages->sendMessage(['peer' => $update, 'message' => 'Your file should be snakker than 1 GB.', 'reply_to_msg_id' => $message_id]);
+                    yield $this->messages->sendMessage(['peer' => $update, 'message' => 'Your file should be Greater than 1 GB.', 'reply_to_msg_id' => $message_id]);
 
                     return;
                 }
@@ -164,7 +161,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
                                 $last_progress = $progress;
 
                                 try {
-                                    yield $this->messages->editMessage(['peer' => $update, 'id' => $sent_message['id'], 'message' => "📤 Your request is in the queue. Do not send another request. Please be patient…\n🗂 File: ".$filename."\n🔗 URL: ".$url."\n💿 File Size: ".$this->formatBytes($filesize)."\n\n⌛ Upload progress: ".$progress.'%'], ['queue' => $queue_id]);
+                                    yield $this->messages->editMessage(['peer' => $update, 'id' => $sent_message['id'], 'message' => "📤 Your request is in queue. Do not send another request. Please be patient…\n🗂 File: ".$filename."\n🔗 URL: ".$url."\n💿 File Size: ".$this->formatBytes($filesize)."\n\n⌛ Upload progress: ".$progress.'%'], ['queue' => $queue_id]);
                                 } catch (Exception $e) {
                                 }
                             }
